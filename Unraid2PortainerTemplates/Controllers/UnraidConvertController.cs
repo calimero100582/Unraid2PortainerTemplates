@@ -114,7 +114,7 @@ namespace Unraid2PortainerTemplates.Controllers
                                             {
                                                 name = c.GetProperty("@attributes").GetProperty("Target").GetString(),
                                                 label = c.GetProperty("@attributes").GetProperty("Name").GetString(),
-                                                value = string.IsNullOrEmpty(c.GetProperty("@attributes").GetProperty("Default").GetString()) ? c.GetProperty("value").GetString() : c.GetProperty("@attributes").GetProperty("Default").GetString(),
+                                                value = !c.GetProperty("@attributes").TryGetProperty("Default", out JsonElement value) || string.IsNullOrEmpty(value.GetString()) ? c.GetProperty("value").GetString() : c.GetProperty("@attributes").GetProperty("Default").GetString(),
                                                 description = c.GetProperty("@attributes").GetProperty("Description").GetString(),
                                             }));
 
