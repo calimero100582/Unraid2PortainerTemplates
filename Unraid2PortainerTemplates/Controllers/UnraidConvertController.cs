@@ -115,7 +115,7 @@ namespace Unraid2PortainerTemplates.Controllers
                                                 name = c.GetProperty("@attributes").GetProperty("Target").GetString(),
                                                 label = c.GetProperty("@attributes").GetProperty("Name").GetString(),
                                                 value = !c.GetProperty("@attributes").TryGetProperty("Default", out JsonElement value) || string.IsNullOrEmpty(value.GetString()) ? c.GetProperty("value").GetString() : c.GetProperty("@attributes").GetProperty("Default").GetString(),
-                                                description = c.GetProperty("@attributes").GetProperty("Description").GetString(),
+                                                description = c.GetProperty("@attributes").TryGetProperty("Description", out JsonElement valueDescription) ? c.GetProperty("@attributes").GetProperty("Description").GetString() : string.Empty,
                                             }));
 
                                             result.volumes.AddRange(config.Where(c => c.GetProperty("@attributes").GetProperty("Type").GetString() == "Path").Select(c => new volume
